@@ -1,14 +1,63 @@
-The fonts in this folder are modified copies of Latin Modern, version 2.004,
-by B. Jackowski and J. M. Nowacki (GUST e-foundry), released under the
-GUST Font License: http://tug.org/fonts/licenses/GUST-FONT-LICENSE.txt
+Fonts on this site
+==================
 
-  LMRoman10-regular.woff2   from lmroman10-regular.otf
-  LMRoman10-italic.woff2    from lmroman10-italic.otf
-  LMRoman10-bold.woff2      from lmroman10-bold.otf
-  LMMono10-regular.woff2    from lmmono10-regular.otf
+The fonts in this folder are MODIFIED versions of Latin Modern, version 2.004,
+by B. Jackowski and J. M. Nowacki (GUST e-foundry).
 
-Changes: each font was subset to Latin letters and common punctuation and
-converted to WOFF2 for use on the web. Nothing else was altered. These files
-are not supported by the original authors.
+  Copyright 2003, 2009 B. Jackowski and J. M. Nowacki (on behalf of TeX users
+  groups). This work is released under the GUST Font License -- see
+  http://tug.org/fonts/licenses/GUST-FONT-LICENSE.txt for details.
+
+They are not Latin Modern, they are distributed under different names, and they
+are not supported by the original authors. Please do not report problems with
+them to GUST.
+
+  KongModern-regular.woff2   from lmroman10-regular.otf
+  KongModern-italic.woff2    from lmroman10-italic.otf
+  KongModern-bold.woff2      from lmroman10-bold.otf
+
+    Changes: every outline was moved outward by 5.5/1000 em, so each stroke is
+    thicker by 11/1000 em. Advance widths, kerning and other layout tables are
+    unchanged; hinting instructions were dropped and the recorded stem widths
+    and alignment zones adjusted. The fonts were renamed "Kong Modern", subset
+    to Latin letters and common punctuation, and converted to WOFF2.
+    The script that makes them is tools/make_font.py in this site's repository.
+
+  LMMono10-regular.woff2     from lmmono10-regular.otf
+
+    Changes: subset to Latin letters and common punctuation and converted to
+    WOFF2. Nothing else was altered.
 
 Unmodified originals: https://www.gust.org.pl/projects/e-foundry/latin-modern
+
+
+Equations
+=========
+
+The equations on the pages are drawings, not fonts: outlines of glyphs from the
+BaKoMa Computer Modern fonts (as shipped with matplotlib), thickened by the same
+11/1000 em and embedded in the pages as SVG.
+
+  BaKoMa Fonts Licence
+
+  Copyright (C) 1994, 1995, Basil K. Malyshev. All Rights Reserved.
+
+  Permission to copy and distribute these fonts for any purpose is
+  hereby granted without fee, provided that the above copyright notice,
+  author statement and this permission notice appear in all copies of
+  these fonts and related documentation.
+
+  Permission to modify and distribute modified fonts for any purpose is
+  hereby granted without fee, provided that the copyright notice,
+  author statement, this permission notice and location of original
+  fonts (http://www.ctan.org/tex-archive/fonts/cm/ps-type1/bakoma)
+  appear in all copies of modified fonts and related documentation.
+
+  Permission to use these fonts (embedding into PostScript, PDF, SVG
+  and printing by using any software) is hereby granted without fee.
+  It is not required to provide any notices about using these fonts.
+
+  Basil K. Malyshev
+  INSTITUTE FOR HIGH ENERGY PHYSICS, IHEP, OMVT
+  Moscow Region, 142281 PROTVINO, RUSSIA
+  E-Mail: bakoma@mail.ru or malyshev@mail.ihep.ru

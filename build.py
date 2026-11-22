@@ -4,6 +4,7 @@
 
 Each page gets the shared masthead and footer, and every
 <span class="tex">...</span> is typeset as an inline SVG (no JavaScript needed).
+The math is thickened by the same amount as the text font (GAIN in tools/thicken.py).
 Needs matplotlib. Preview with:  python3 -m http.server  then open localhost:8000
 """
 import base64
@@ -11,6 +12,7 @@ import html as htmllib
 import io
 import pathlib
 import re
+import sys
 
 import matplotlib
 
@@ -18,9 +20,15 @@ matplotlib.use("svg")
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 from matplotlib.mathtext import MathTextParser
+from matplotlib.patches import PathPatch
+from matplotlib.path import Path
+from matplotlib.textpath import TextPath
+from matplotlib.transforms import Affine2D
 
 root = pathlib.Path(__file__).parent
 src = root / "src"
+sys.path.insert(0, str(root / "tools"))
+from thicken import GAIN, thicken_path  # the stroke weight shared by the text font and the math
 
 # source file -> URL path it is served at
 PAGES = {
@@ -72,9 +80,20 @@ def tex(match: re.Match) -> str:
     expr = f"${source}$"
     prop = FontProperties(size=PT, math_fontfamily="cm")
     w, h, depth, *_ = MathTextParser("path").parse(expr, dpi=72, prop=prop)
-    W, H = w, h + 2 * PAD  # pad vertically only, so inline math sits tight against punctuation
+    edge = GAIN / 2000 * PT  # thickened outlines reach this far past the glyph edges
+    W, H = w + 2 * edge, h + 2 * PAD  # pad vertically only, so inline math sits tight against punctuation
     fig = plt.figure(figsize=(W / 72, H / 72))
-    fig.text(0, (depth + PAD) / H, expr, fontproperties=prop, color=INK)
+    if GAIN:
+        # Thicken the math exactly as tools/make_font.py thickens the text font: move the
+        # outlines themselves. (A stroke drawn around them comes out too heavy on screen.)
+        outline = TextPath((0, 0), expr, size=PT, prop=prop)
+        k = 1000 / PT  # points to font units
+        verts, codes = thicken_path([(x * k, y * k) for x, y in outline.vertices], list(outline.codes), GAIN / 2)
+        path = Path([(round(x) / k, round(y) / k) for x, y in verts], codes)  # whole font units, as in the font
+        place = Affine2D().translate(edge, depth + PAD).scale(1 / 72) + fig.dpi_scale_trans
+        fig.add_artist(PathPatch(path, transform=place, facecolor=INK, edgecolor="none", linewidth=0))
+    else:
+        fig.text(0, (depth + PAD) / H, expr, fontproperties=prop, color=INK)
     buf = io.BytesIO()
     fig.savefig(buf, format="svg", transparent=True, metadata={"Date": None})
     plt.close(fig)
