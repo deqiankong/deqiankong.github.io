@@ -1,0 +1,14 @@
+The fonts in this folder are modified copies of Latin Modern, version 2.004,
+by B. Jackowski and J. M. Nowacki (GUST e-foundry), released under the
+GUST Font License: http://tug.org/fonts/licenses/GUST-FONT-LICENSE.txt
+
+  LMRoman10-regular.woff2   from lmroman10-regular.otf
+  LMRoman10-italic.woff2    from lmroman10-italic.otf
+  LMRoman10-bold.woff2      from lmroman10-bold.otf
+  LMMono10-regular.woff2    from lmmono10-regular.otf
+
+Changes: each font was subset to Latin letters and common punctuation and
+converted to WOFF2 for use on the web. Nothing else was altered. These files
+are not supported by the original authors.
+
+Unmodified originals: https://www.gust.org.pl/projects/e-foundry/latin-modern

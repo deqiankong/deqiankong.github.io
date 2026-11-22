@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deqian Kong</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="mock-note">mockup · home page · all copy and news are placeholder drafts</div>
+
+<!--masthead:home-->
+
+<main class="column">
+
+  <p>I am a final-year PhD candidate in Statistics at UCLA, advised by <a href="https://people.stat.ucla.edu/ywu/">Ying Nian Wu</a>. My long-term goal is to build interpretable models by understanding how neural networks represent information, reason, and learn from experience. Inspired by the study of computation in the brain, I approach these questions through latent-variable modeling, probabilistic inference, and models of neural representation.</p>
+
+  <h2>Currently <span class="aside">November 2026</span></h2>
+
+  <p>How we frame human understanding may be the most important question of the current era of AI. I am interested in models whose computation we can read: explicit thoughts and plans, inference that adapts to the difficulty of the problem, and representations whose geometry explains what they compute.</p>
+
+  <p class="todo">[One line on what you are looking for, and from when.]</p>
+
+  <h2>Research</h2>
+
+  <section class="thread">
+    <p><span class="runin">Neural representations and computation.</span> What the cells of a brain, or the units of a network, represent, and what that representation makes easy to compute.</p>
+    <article class="work">
+      <p class="cite"><a href="#">Place Cells as Multi-Scale Position Embeddings</a>. <span class="venue">NeurIPS 2025</span></p>
+      <p class="idea">The population of place cells forms an embedding of position whose inner products are normalized random-walk transition probabilities. In this embedding, planning follows a straight path.</p>
+      <div class="eq">
+        <span class="tex">\langle\, h(x,t),\; h(y,t) \,\rangle \;=\; q(y \mid x,\, t)</span>
+        <span class="no">(1)</span>
+      </div>
+    </article>
+    <article class="work">
+      <p class="cite"><a href="#">Latent Thought Models with Variational Bayes Inference-Time Computation</a>. <span class="venue">ICML 2025</span></p>
+      <p class="idea">A language model with explicit thought vectors, inferred for each sequence by fast learning of local parameters, which complements the slow learning of global ones.</p>
+      <figure>
+        <img src="assets/img/latent-thought.webp" width="1280" height="405" alt="Architecture of the Latent Thought Model, and validation perplexity against inference steps">
+        <p class="caption"><b>Figure 1.</b> Left: thought vectors <span class="tex">z</span> condition every layer through cross-attention. Right: validation perplexity against inference steps.</p>
+      </figure>
+    </article>
+  </section>
+
+  <section class="thread">
+    <p><span class="runin">Learning, reasoning, and planning.</span> How a model learns from experience, and how it uses what it has learned to think ahead.</p>
+    <article class="work">
+      <p class="cite"><a href="#">Latent Plan Transformer for Trajectory Abstraction</a>. <span class="venue">NeurIPS 2024</span></p>
+      <p class="idea">A latent plan controls a whole trajectory. Only the whole plan is evaluated, without stepwise rewards, which avoids the credit assignment problem.</p>
+    </article>
+  </section>
+
+  <section class="thread">
+    <p><span class="runin">Probabilistic modeling and scientific discovery.</span> The same probabilistic tools, applied to molecules and to many-body physics.</p>
+    <article class="work">
+      <p class="cite"><a href="#">Molecule Design by Latent Prompt Transformer</a>. <span class="venue">NeurIPS 2024</span> <span class="honor">Spotlight</span></p>
+      <p class="idea">A continuous latent design is easier to optimize than a search over the discrete space of molecules.</p>
+    </article>
+  </section>
+
+  <p class="more"><a href="research.html">More on each question →</a></p>
+
+  <h2>News</h2>
+
+  <ul class="news">
+    <li><time>Nov 2026</time><span>New note: <a href="post.html">Planning follows a straight path</a>.</span></li>
+    <li><time>Sep 2026</time><span>Finished a student researcher term at Google DeepMind.</span></li>
+    <li><time>2026</time><span>BoardGameArena accepted to NeurIPS 2026, Evaluations and Datasets Track.</span></li>
+    <li><time>June 2026</time><span>Talk at the UCSC Statistics seminar: From Random Walk to Planning-ready World Models.</span></li>
+    <li><time>2026</time><span>Spotlight at ICML 2026 for Solving Time-Dependent Differential Equations with Physical Dynamical Systems.</span></li>
+    <li><time>2026</time><span>Anthropic AI for Science Award.</span></li>
+  </ul>
+
+</main>
+
+<!--footer-->
+
+</body>
+</html>
