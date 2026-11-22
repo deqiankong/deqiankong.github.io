@@ -1,0 +1,160 @@
+/* Deqian Kong — site mockup. Plain paper, one column, Latin Modern. */
+
+@font-face { font-family: "LM Roman"; src: url(assets/fonts/LMRoman10-regular.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "LM Roman"; src: url(assets/fonts/LMRoman10-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "LM Roman"; src: url(assets/fonts/LMRoman10-bold.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "LM Mono"; src: url(assets/fonts/LMMono10-regular.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+
+:root {
+  --paper: #fffdf6;       /* ivory book paper */
+  --ink: #161513;
+  --muted: #5d5b56;
+  --link: #005587;        /* UCLA Darker Blue */
+  --select: #daebfe;      /* UCLA lightest blue, for selected text */
+  --gold: #ffd100;        /* UCLA Gold; only as a rule under ink text, never as a text colour */
+  --rule: #d8d5cb;
+  --serif: "LM Roman", "Latin Modern Roman", "CMU Serif", Georgia, serif;
+  --mono: "LM Mono", "Latin Modern Mono", ui-monospace, Menlo, Consolas, monospace;
+  --measure: 42rem;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+::selection { background: var(--select); color: var(--ink); }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 1.125rem/1.45 var(--serif);
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+  text-rendering: optimizeLegibility;
+}
+.column { max-width: var(--measure); margin: 0 auto; padding: 0 1.1rem; }
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+.muted { color: var(--muted); }
+
+/* mockup notice — not part of the design */
+.mock-note { text-align: center; font: .72rem/1.3 ui-monospace, Menlo, Consolas, monospace; color: var(--muted); padding: .45rem 1rem; border-bottom: 1px dashed var(--rule); }
+
+/* masthead */
+.masthead { text-align: center; padding-top: 3rem; }
+.masthead .name { font-size: 2.05rem; line-height: 1.2; color: var(--ink); }
+.masthead .name:hover { text-decoration: none; }
+.masthead .tagline { margin: .35rem 0 1.5rem; font-style: italic; text-wrap: balance; }
+.masthead nav {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: .3rem 1.9rem;
+  padding: .55rem 0;
+  border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink);
+}
+.masthead nav a { color: var(--ink); text-transform: uppercase; letter-spacing: .1em; font-size: .78rem; }
+.masthead nav a[aria-current] { color: var(--link); }
+
+main.column { margin-top: 2.8rem; }
+main p { margin: 0 0 .9em; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+h2 { font-size: 1.3rem; font-weight: 700; line-height: 1.25; margin: 2.6rem 0 .8rem; }
+h2 .aside { font-weight: 400; font-style: italic; font-size: .82rem; color: var(--muted); margin-left: .5rem; }
+.todo { font-style: italic; color: var(--muted); }
+
+/* display equations, numbered on the right */
+.eq { display: grid; grid-template-columns: 2.2rem 1fr 2.2rem; align-items: center; margin: 1.1rem 0 1.2rem; }
+.eq img { grid-column: 2; justify-self: center; max-width: 100%; height: auto; display: block; }
+img.tex { height: auto; max-width: 100%; }
+.eq .no { grid-column: 3; justify-self: end; }
+var { font-style: italic; }
+
+/* booktabs table */
+.tablewrap { overflow-x: auto; margin: 1.5rem 0 .4rem; }
+table { border-collapse: collapse; margin: 0 auto; border-top: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); }
+th { font-weight: 400; border-bottom: 1px solid var(--ink); }
+th, td { padding: .22rem 1.05rem; text-align: left; white-space: nowrap; }
+.caption { font-size: .88em; line-height: 1.4; text-align: center; margin: .55rem auto 0; max-width: 36rem; }
+.caption b { font-weight: 700; }
+
+/* research threads */
+.thread { margin: 0 0 1.9rem; }
+.thread > p { margin-bottom: .45em; }
+.thread .runin { font-weight: 700; }
+/* Oral / Spotlight: ink text over a thin gold rule */
+.honor { white-space: nowrap; border-bottom: .14em solid var(--gold); }
+
+/* one highlighted work: title and venue, then the idea in one line */
+.work { margin: .85rem 0 1rem 1.4em; }
+main .work p { text-align: left; hyphens: manual; -webkit-hyphens: manual; }
+main .work .caption { text-align: center; }
+.work .cite { margin: 0; }
+.work .venue { color: var(--muted); white-space: nowrap; }
+
+.work .idea { margin: .1em 0 0; font-size: .95em; }
+.work .eq { margin: .7rem 0 .2rem; }
+.work figure { margin: 1.1rem 0 1.5rem -1.4em; }
+figure { margin: 1.5rem 0 1.7rem; text-align: center; }
+figure img { max-width: 100%; height: auto; display: block; margin: 0 auto; mix-blend-mode: multiply; }
+figure .caption img.tex { display: inline; mix-blend-mode: normal; }
+figure video { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+
+/* publications: the complete record, by year */
+h2.year { font-size: 1.1rem; margin: 2.1rem 0 .55rem; }
+.pub { margin: .75rem 0; }
+main .pub p { text-align: left; hyphens: manual; -webkit-hyphens: manual; }
+.pub .cite { margin: 0; }
+.pub .venue { color: var(--muted); }
+.pub .authors { margin: .05em 0 0; font-size: .9em; color: var(--muted); }
+.pub .authors b { font-weight: 400; color: var(--ink); }
+
+/* news: date on the left, one line each */
+ul.news { list-style: none; padding: 0; margin: 0; }
+ul.news li { display: grid; grid-template-columns: 5.6em 1fr; column-gap: .9rem; margin: .4rem 0; }
+ul.news time { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* a post */
+.title-block { text-align: center; margin-bottom: 2.4rem; }
+.title-block h1 { font-size: 1.75rem; font-weight: 700; line-height: 1.25; margin: 0 0 .45rem; }
+.title-block .meta { font-style: italic; color: var(--muted); margin: 0; text-align: center; }
+.post { counter-reset: sidenote; }
+.sn-ref { counter-increment: sidenote; font-size: .7em; line-height: 0; }
+.sn-ref::after { content: counter(sidenote); }
+.sidenote { display: block; margin: .55em 0 .55em 1.4em; font-size: .84em; line-height: 1.38; color: var(--muted); text-align: left; hyphens: manual; -webkit-hyphens: manual; }
+.sidenote::before { content: counter(sidenote) "\2002"; font-size: .85em; vertical-align: .3em; }
+@media (min-width: 76rem) {
+  .sidenote { float: right; clear: right; width: 13rem; margin: .2em -15rem .6em 0; }
+}
+/* code is framed by hairlines, like a table, with no filled panel */
+pre { padding: .8rem 0; margin: 1.4rem 0; overflow-x: auto; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+code, pre { font-family: var(--mono); font-size: .8em; line-height: 1.42; }
+pre code { font-size: 1em; }
+ol.refs { font-size: .93em; padding-left: 1.5em; }
+ol.refs li { margin: .25em 0; }
+.pager { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-style: italic; }
+
+/* writing list with dotted leaders */
+ul.log { list-style: none; padding: 0; margin: 0; }
+ul.log li { display: flex; align-items: baseline; gap: .45rem; margin: .32rem 0; }
+ul.log .leader { flex: 1; min-width: 1.5rem; border-bottom: 1px dotted var(--muted); transform: translateY(-.28em); }
+ul.log time { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+ul.log .kind { color: var(--muted); font-style: italic; font-size: .9em; margin-left: .45rem; }
+.more { font-style: italic; margin-top: .8rem; }
+
+footer { text-align: center; border-top: 1px solid var(--rule); margin-top: 4rem; padding: 1.3rem 1rem 3rem; color: var(--muted); font-size: .9rem; }
+footer a { color: var(--muted); }
+footer .sep { margin: 0 .45rem; }
+
+@media (max-width: 34rem) {
+  body { font-size: 1.05rem; }
+  main p { text-align: left; }
+  .eq { grid-template-columns: 0 1fr 2rem; }
+  .work { margin-left: 0; }
+  .work figure { margin-left: 0; }
+  .masthead nav { gap: .3rem .95rem; }
+  .masthead nav a { font-size: .72rem; letter-spacing: .07em; }
+  ul.news li { grid-template-columns: 4.9em 1fr; column-gap: .6rem; }
+  ul.log li { flex-wrap: wrap; }
+  ul.log .leader { display: none; }
+  ul.log time { flex-basis: 100%; font-size: .9em; }
+  table { font-size: .95em; }
+  th, td { padding: .22rem .5rem; }
+}

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planning follows a straight path · Deqian Kong</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="mock-note">mockup · sample post · text adapted from Ying Nian Wu's public comment on the paper · clip computed for this mockup</div>
+
+<!--masthead:writing-->
+
+<main class="column post">
+
+  <header class="title-block">
+    <h1>Planning follows a straight path</h1>
+    <p class="meta">November 2026 · note</p>
+  </header>
+
+  <p>Place cells in the hippocampus fire when an animal is at a particular place. Instead of asking what a single cell does, take the whole population at position <span class="tex">x</span> as one vector, <span class="tex">h(x, t)</span>, where <span class="tex">t</span> sets the spatial scale.<sup class="sn-ref"></sup><span class="sidenote">The scale grows like <span class="tex">\sqrt{t}</span>, which mirrors the dorsoventral axis of the hippocampus.</span> We ask one thing of this vector: its inner products should be the transition probabilities of a random walk,</p>
+
+  <div class="eq">
+    <span class="tex">\langle\, h(x,t),\; h(y,t) \,\rangle \;=\; q(y \mid x,\, t)</span>
+    <span class="no">(1)</span>
+  </div>
+
+  <p>where <span class="tex">q(y \mid x, t)</span> is the probability of reaching <span class="tex">y</span> from <span class="tex">x</span> in <span class="tex">t</span> steps, normalized so that <span class="tex">q(x \mid x, t) = 1</span>. If the elements of <span class="tex">h</span> are also required to be non-negative, each one becomes a localized place field, and together the fields tile the space.</p>
+
+  <figure>
+    <img src="assets/img/place-cells.webp" width="1280" height="390" alt="Multi-scale place fields and planned paths in open fields and mazes">
+    <p class="caption"><b>Figure 1.</b> Place fields at several time scales, and the paths planned from them in open fields and mazes.</p>
+  </figure>
+
+  <h2>Why the path is straight</h2>
+
+  <p>Every <span class="tex">h(x, t)</span> has unit norm, so (1) gives</p>
+
+  <div class="eq">
+    <span class="tex">\Vert\, h(x,t) - h(y,t) \,\Vert^2 \;=\; 2 - 2\, q(y \mid x,\, t)</span>
+    <span class="no">(2)</span>
+  </div>
+
+  <p>Climbing <span class="tex">q</span> toward a goal <span class="tex">y</span> is therefore the same as descending the Euclidean distance to <span class="tex">h(y, t)</span>. In the maze the route bends around walls. In the embedding it heads straight for the goal.</p>
+
+  <h2>Many scales</h2>
+
+  <p>One scale is not enough. Near the goal a small <span class="tex">t</span> gives a sharp signal, and far from it only a large <span class="tex">t</span> reaches at all. The scales are tied together by</p>
+
+  <div class="eq">
+    <span class="tex">P_{2t} \;=\; P_t^{\,2}</span>
+    <span class="no">(3)</span>
+  </div>
+
+  <p>which is the recursion of dynamic programming.<sup class="sn-ref"></sup><span class="sidenote">No successful trajectory is needed to learn this. The walk is random.</span> At each step the planner uses the scale with the largest gradient.</p>
+
+  <figure>
+    <video src="assets/video/walk.webm" poster="assets/img/walk-poster.webp" width="704" height="484" autoplay muted loop playsinline></video>
+    <p class="caption"><b>Video 1.</b> The field <span class="tex">q(y \mid x, t)</span> for a fixed goal as <span class="tex">t</span> grows, then the path found by the planner below.</p>
+  </figure>
+
+<pre><code># Setup omitted: A is the adjacency matrix of the free cells of the maze,
+# deg its row sums, and P = I/2 + A/(2 deg) the lazy random walk on them.
+
+def q(Pt):
+    """Normalized transition probability, so that q(x | x, t) = 1."""
+    K = Pt / deg[None, :]        # symmetric kernel of the reversible walk
+    d = np.sqrt(np.diag(K))
+    return K / np.outer(d, d)
+
+# Scales t = 1, 2, 4, ...: P_2t = P_t squared.
+scales, Pt = [], P.copy()
+for k in range(12):
+    scales.append(q(Pt))
+    Pt = Pt @ Pt
+
+def plan(x, y):
+    """Greedy ascent on q(y | x, t), at the scale with the largest gain."""
+    path = [x]
+    while x != y:
+        nbrs = np.nonzero(A[x])[0]
+        gain = np.array([[Q[n, y] - Q[x, y] for n in nbrs] for Q in scales])
+        x = nbrs[gain.max(0).argmax()]
+        path.append(x)
+    return path</code></pre>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>symbol</th><th>meaning</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tex">x,\; y</span></td><td>positions</td></tr>
+        <tr><td><span class="tex">t</span></td><td>number of steps of the walk</td></tr>
+        <tr><td><span class="tex">h(x, t)</span></td><td>population vector of place cells</td></tr>
+        <tr><td><span class="tex">q(y \mid x, t)</span></td><td>normalized transition probability</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="caption"><b>Table 1.</b> Notation.</p>
+
+  <h2>Reference</h2>
+
+  <ol class="refs">
+    <li>M. Zhao, D. Xu, D. Kong, W.-H. Zhang, Y. N. Wu. <a href="#">Place Cells as Multi-Scale Position Embeddings: Random Walk Transition Kernels for Path Planning</a>. NeurIPS 2025.</li>
+  </ol>
+
+  <nav class="pager">
+    <a href="#">← Older post</a>
+    <a href="#">Newer post →</a>
+  </nav>
+
+</main>
+
+<!--footer-->
+
+</body>
+</html>
