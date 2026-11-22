@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
-"""Build the site's text font: Latin Modern Roman 10 with every stroke thickened.
+"""Build the site's fonts: Latin Modern with every stroke thickened.
 
     python3 tools/make_font.py --src DIR
 
 DIR holds the Latin Modern 2.004 OpenType files (lmroman10-regular.otf,
-lmroman10-italic.otf, lmroman10-bold.otf), from
+lmroman10-italic.otf, lmroman10-bold.otf for the text, lmmono10-regular.otf
+for code), from
 https://www.gust.org.pl/projects/e-foundry/latin-modern or any TeX distribution.
 
 The amount is GAIN in thicken.py, in thousandths of an em. Each outline moves
-outward by GAIN/2, so stems go from 69 to 69+GAIN and hairlines from 31 to
-31+GAIN. Letter widths, spacing and kerning stay exactly as in Latin Modern,
-so line breaks do not change. A gain of 0 gives Latin Modern back.
+outward by GAIN/2, so the text's stems go from 69 to 69+GAIN and its hairlines
+from 31 to 31+GAIN; the code font gains the same. Letter widths, spacing and
+kerning stay exactly as in Latin Modern, so line breaks do not change. A gain
+of 0 gives Latin Modern back.
 
-Writes assets/fonts/<Family>-<style>.woff2, cut down to the site's character
-set. With --full DIR it also writes complete .otf files, for check_font.py.
+Writes assets/fonts/KongModern-<style>.woff2 and KongModernMono-regular.woff2,
+cut down to the site's character set. With --full DIR it also writes complete
+.otf files, for check_font.py.
 
-The result carries its own family name and says in its name records that it is
+Each result carries its own family name and says in its name records that it is
 a modified version. After changing GAIN, run this and then build.py.
 Needs fontTools and brotli.
 """
@@ -31,9 +34,11 @@ from thicken import EPS, GAIN, norm, sub, thicken_glyph
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 FAMILY = "Kong Modern"
-STYLES = {"regular": ("lmroman10-regular.otf", "Regular"),
-          "italic": ("lmroman10-italic.otf", "Italic"),
-          "bold": ("lmroman10-bold.otf", "Bold")}
+# output style -> (source file, family suffix, style name, what it was made from)
+FONTS = {"regular": ("lmroman10-regular.otf", "", "Regular", "Latin Modern Roman 10"),
+         "italic": ("lmroman10-italic.otf", "", "Italic", "Latin Modern Roman 10 Italic"),
+         "bold": ("lmroman10-bold.otf", "", "Bold", "Latin Modern Roman 10 Bold"),
+         "mono": ("lmmono10-regular.otf", " Mono", "Regular", "Latin Modern Mono 10")}
 
 # The characters the site's fonts carry: Latin with accents, common punctuation.
 CHARSET = ("0020-007E 00A0-0137 0139-0148 014A-0165 0168-017F 018E 0192 01A0-01A1 01AF-01B0 "
@@ -121,12 +126,12 @@ def thicken(font, gain):
         private.OtherBlues = [v - up for v in private.OtherBlues]
 
 
-def rename(font, family, style, gain):
+def rename(font, family, style, gain, origin):
     ps = family.replace(" ", "") + "-" + style
     full = family if style == "Regular" else family + " " + style
-    note = ("%s is a modified version of Latin Modern Roman 10 (GUST e-foundry, v2.004): "
+    note = ("%s is a modified version of %s (GUST e-foundry, v2.004): "
             "every stroke thickened by %g/1000 em. It is not Latin Modern and is not "
-            "supported by its authors." % (family, gain))
+            "supported by its authors." % (full, origin, gain))
     name = font["name"]
     for rec in list(name.names):
         if rec.nameID in (1, 16): rec.string = family
@@ -169,20 +174,21 @@ def main():
     ap.add_argument("--full", help="also write complete .otf files here, for check_font.py")
     a = ap.parse_args()
     out = pathlib.Path(a.out); out.mkdir(parents=True, exist_ok=True)
-    stem = a.family.replace(" ", "")
-    for style, (source, style_name) in STYLES.items():
+    for key, (source, suffix, style_name, origin) in FONTS.items():
+        family = a.family + suffix
+        stem = family.replace(" ", "") + "-" + ("regular" if suffix else key)
         font = TTFont(pathlib.Path(a.src) / source, recalcTimestamp=False)   # same input, same bytes out
         thicken(font, a.gain)
-        rename(font, a.family, style_name, a.gain)
+        rename(font, family, style_name, a.gain, origin)
         if a.full:
             pathlib.Path(a.full).mkdir(parents=True, exist_ok=True)
-            font.save(pathlib.Path(a.full) / ("%s-%s.otf" % (stem, style)))
+            font.save(pathlib.Path(a.full) / (stem + ".otf"))
         web_subset(font)
         font.flavor = "woff2"
-        web = out / ("%s-%s.woff2" % (stem, style))
+        web = out / (stem + ".woff2")
         font.save(web)
         print("%-8s gain %-4g %d glyphs  %5.1f kB  %s" % (
-            style, a.gain, len(TTFont(web).getGlyphOrder()), web.stat().st_size / 1000, web.name))
+            key, a.gain, len(TTFont(web).getGlyphOrder()), web.stat().st_size / 1000, web.name))
 
 
 if __name__ == "__main__":
