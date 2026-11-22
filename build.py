@@ -20,27 +20,23 @@ from matplotlib.font_manager import FontProperties
 from matplotlib.mathtext import MathTextParser
 
 root = pathlib.Path(__file__).parent
-src = root / "src"
+src = root / "src"  # src/drafts/ is not built
 
 # source file -> URL path it is served at
 PAGES = {
     "index.html": "/",
     "research.html": "/research/",
     "publications.html": "/publications/",
-    "post.html": "/writing/planning-follows-a-straight-path/",
 }
 NAV = [  # label, target, key
     ("Home", "index.html", "home"),
     ("Research", "research.html", "research"),
     ("Publications", "publications.html", "publications"),
-    ("Writing", "post.html", "writing"),  # the archive page does not exist yet
-    ("CV", "#", "cv"),
 ]
 TAGLINE = "understanding how networks represent, reason, and learn"
 FOOTER = """<footer>
   © 2026 Deqian Kong
   <span class="sep">·</span>deqiankong AT ucla.edu
-  <span class="sep">·</span><a href="#">Scholar</a>
   <span class="sep">·</span><a href="https://github.com/deqiankong">GitHub</a>
 </footer>"""
 
