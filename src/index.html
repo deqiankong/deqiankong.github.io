@@ -13,7 +13,7 @@
 
 <main class="column">
 
-  <p>I am a final-year PhD candidate in Statistics at UCLA, advised by <a href="https://people.stat.ucla.edu/ywu/">Ying Nian Wu</a>. My long-term goal is to build interpretable models by understanding how neural networks represent information, reason, and learn from experience. Inspired by the study of computation in the brain, I approach these questions through latent-variable modeling, probabilistic inference, and models of neural representation.</p>
+  <p>I am a final-year PhD candidate in Statistics at UCLA, advised by <a href="https://people.stat.ucla.edu/ywu/">Ying Nian Wu</a>. My long-term goal is to build interpretable models by understanding how neural networks represent information, reason, and learn from experience. Inspired by the study of computation in the brain, I approach these questions through latent-variable modeling, probabilistic inference, and models of neural representation. On the side, I study condensed matter physics.</p>
 
   <h2>Currently <span class="aside">November 2026</span></h2>
 
@@ -22,15 +22,12 @@
   <h2>Research</h2>
 
   <section class="thread">
-    <p><span class="runin">Neural representations and computation.</span> What the cells of a brain, or the units of a network, represent, and what that representation makes easy to compute.</p>
-    <article class="work">
-      <p class="cite"><a href="https://arxiv.org/abs/2505.14806">Place Cells as Multi-Scale Position Embeddings</a>. <span class="venue">NeurIPS 2025</span></p>
-      <p class="idea">The population of place cells forms an embedding of position whose inner products are normalized random-walk transition probabilities. In this embedding, planning follows a straight path.</p>
-      <div class="eq">
-        <span class="tex">\langle\, h(x,t),\; h(y,t) \,\rangle \;=\; q(y \mid x,\, t)</span>
-        <span class="no">(1)</span>
-      </div>
-    </article>
+    <p><span class="runin">Thinking, planning, and design as inference.</span> A latent vector <span class="tex">z</span> stands behind a whole object <span class="tex">x</span>, such as a passage of text, a trajectory, or a molecule, and behind its value <span class="tex">y</span>. To think, to plan, or to design is then to infer <span class="tex">z</span>.</p>
+    <div class="eq">
+      <span class="tex">p(x,\, y,\, z) \;=\; p(z)\; p(x \mid z)\; p(y \mid z)</span>
+      <span class="no">(1)</span>
+    </div>
+    <p>The prior <span class="tex">p(z)</span> is itself learned, for example as an energy-based model, <span class="tex">p(z) \,\propto\, \exp\left(f(z)\right)\, p_0(z)</span>.</p>
     <article class="work">
       <p class="cite"><a href="https://arxiv.org/abs/2502.01567">Latent Thought Models with Variational Bayes Inference-Time Computation</a>. <span class="venue">ICML 2025</span></p>
       <p class="idea">A language model with explicit thought vectors, inferred for each sequence by fast learning of local parameters, which complements the slow learning of global ones.</p>
@@ -39,25 +36,41 @@
         <p class="caption"><b>Figure 1.</b> Left: thought vectors <span class="tex">z</span> condition every layer through cross-attention. Right: validation perplexity against inference steps.</p>
       </figure>
     </article>
-  </section>
-
-  <section class="thread">
-    <p><span class="runin">Learning, reasoning, and planning.</span> How a model learns from experience, and how it uses what it has learned to think ahead.</p>
     <article class="work">
       <p class="cite"><a href="https://arxiv.org/abs/2402.04647">Latent Plan Transformer for Trajectory Abstraction</a>. <span class="venue">NeurIPS 2024</span></p>
       <p class="idea">A latent plan controls a whole trajectory. Only the whole plan is evaluated, without stepwise rewards, which avoids the credit assignment problem.</p>
     </article>
-  </section>
-
-  <section class="thread">
-    <p><span class="runin">Probabilistic modeling and scientific discovery.</span> The same probabilistic tools, applied to molecules and to many-body physics.</p>
     <article class="work">
       <p class="cite"><a href="https://arxiv.org/abs/2402.17179">Molecule Design by Latent Prompt Transformer</a>. <span class="venue">NeurIPS 2024</span> <span class="honor">Spotlight</span></p>
       <p class="idea">A continuous latent design is easier to optimize than a search over the discrete space of molecules.</p>
     </article>
   </section>
 
-  <p class="more"><a href="research.html">More on each question →</a></p>
+  <section class="thread">
+    <p><span class="runin">Representation as geometry.</span> What the cells of a brain, or the units of a network, represent, and what that representation makes easy to compute.</p>
+    <article class="work">
+      <p class="cite"><a href="https://arxiv.org/abs/2505.14806">Place Cells as Multi-Scale Position Embeddings</a>. <span class="venue">NeurIPS 2025</span></p>
+      <p class="idea">The population of place cells forms an embedding of position whose inner products are normalized random-walk transition probabilities. In this embedding, planning follows a straight path.</p>
+      <div class="eq">
+        <span class="tex">\langle\, h(x,t),\; h(y,t) \,\rangle \;=\; q(y \mid x,\, t)</span>
+        <span class="no">(2)</span>
+      </div>
+      <figure>
+        <img src="assets/img/place-cells.webp" width="1280" height="390" alt="Multi-scale place fields and planned paths in open fields and mazes">
+        <p class="caption"><b>Figure 2.</b> Place fields at several time scales, and the paths planned from them in open fields and mazes.</p>
+      </figure>
+    </article>
+    <article class="work">
+      <p class="cite"><a href="https://arxiv.org/abs/2609.38383">Learning to Plan from Random Exploration</a>. <span class="venue">Preprint, 2026</span></p>
+      <p class="idea">Planning can be based on random exploration directly, without policy optimization.</p>
+      <figure>
+        <img src="assets/img/cognitive-map.webp" width="1200" height="332" alt="Three-dimensional t-SNE views of position embeddings in a maze at three horizons">
+        <p class="caption"><b>Figure 3.</b> A map formed from random exploration: embeddings of position in a maze, at three horizons <span class="tex">\tau</span>, in a 3D t-SNE view. Colours mark regions of the maze.</p>
+      </figure>
+    </article>
+  </section>
+
+  <p class="more"><a href="research.html">More on each model →</a></p>
 
   <h2>News</h2>
 
