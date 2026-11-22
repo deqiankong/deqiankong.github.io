@@ -3,6 +3,7 @@
 
     python3 tools/make_font.py --src DIR --full /tmp/full
     python3 tools/check_font.py DIR/lmroman10-regular.otf /tmp/full/KongModern-regular.otf 11
+    (and likewise italic, bold, and lmmono10-regular.otf against KongModernMono-regular.otf)
 
 Each glyph is drawn at one pixel per font unit, before and after. The new
 shape must contain everything within gain/2 of the old one, and must not

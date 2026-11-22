@@ -1,10 +1,10 @@
 /* Deqian Kong. Plain paper, one column.
-   Text: Kong Modern, a cut of Latin Modern with sturdier strokes (tools/make_font.py). */
+   Text and code: Kong Modern, a cut of Latin Modern with sturdier strokes (tools/make_font.py). */
 
 @font-face { font-family: "Kong Modern"; src: url(assets/fonts/KongModern-regular.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "Kong Modern"; src: url(assets/fonts/KongModern-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
 @font-face { font-family: "Kong Modern"; src: url(assets/fonts/KongModern-bold.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
-@font-face { font-family: "LM Mono"; src: url(assets/fonts/LMMono10-regular.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Kong Modern Mono"; src: url(assets/fonts/KongModernMono-regular.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 
 :root {
   --paper: #fffdf6;       /* ivory book paper */
@@ -15,7 +15,7 @@
   --gold: #ffd100;        /* UCLA Gold; only as a rule under ink text, never as a text colour */
   --rule: #d8d5cb;
   --serif: "Kong Modern", "Latin Modern Roman", "CMU Serif", Georgia, serif;
-  --mono: "LM Mono", "Latin Modern Mono", ui-monospace, Menlo, Consolas, monospace;
+  --mono: "Kong Modern Mono", "Latin Modern Mono", ui-monospace, Menlo, Consolas, monospace;
   --measure: clamp(42rem, 68vw, 54rem);   /* column grows with the window */
   color-scheme: light;
 }

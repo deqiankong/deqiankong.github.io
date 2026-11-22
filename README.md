@@ -22,7 +22,8 @@ Write math as `<span class="tex">x^2</span>`; the build typesets it as an inline
 
 The text is set in Kong Modern: Latin Modern Roman 10 with every stroke made thicker
 by the same amount, `GAIN` thousandths of an em (now 11). Widths and kerning are
-Latin Modern's, so nothing reflows. The equations are thickened by the same amount.
+Latin Modern's, so nothing reflows. Code (Kong Modern Mono, from Latin Modern Mono 10)
+and the equations are thickened by the same amount.
 To change the weight, edit `GAIN` in `tools/thicken.py`, then:
 
     python3 tools/make_font.py --src DIR    # DIR: the Latin Modern .otf files; needs fontTools, brotli

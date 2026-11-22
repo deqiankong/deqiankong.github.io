@@ -12,21 +12,18 @@ They are not Latin Modern, they are distributed under different names, and they
 are not supported by the original authors. Please do not report problems with
 them to GUST.
 
-  KongModern-regular.woff2   from lmroman10-regular.otf
-  KongModern-italic.woff2    from lmroman10-italic.otf
-  KongModern-bold.woff2      from lmroman10-bold.otf
+  KongModern-regular.woff2       from lmroman10-regular.otf
+  KongModern-italic.woff2        from lmroman10-italic.otf
+  KongModern-bold.woff2          from lmroman10-bold.otf
+  KongModernMono-regular.woff2   from lmmono10-regular.otf
 
     Changes: every outline was moved outward by 5.5/1000 em, so each stroke is
     thicker by 11/1000 em. Advance widths, kerning and other layout tables are
     unchanged; hinting instructions were dropped and the recorded stem widths
-    and alignment zones adjusted. The fonts were renamed "Kong Modern", subset
-    to Latin letters and common punctuation, and converted to WOFF2.
+    and alignment zones adjusted. The fonts were renamed "Kong Modern" and
+    "Kong Modern Mono", subset to Latin letters and common punctuation, and
+    converted to WOFF2.
     The script that makes them is tools/make_font.py in this site's repository.
-
-  LMMono10-regular.woff2     from lmmono10-regular.otf
-
-    Changes: subset to Latin letters and common punctuation and converted to
-    WOFF2. Nothing else was altered.
 
 Unmodified originals: https://www.gust.org.pl/projects/e-foundry/latin-modern
 
