@@ -20,18 +20,21 @@ from matplotlib.font_manager import FontProperties
 from matplotlib.mathtext import MathTextParser
 
 root = pathlib.Path(__file__).parent
-src = root / "src"  # src/drafts/ is not built
+src = root / "src"
 
 # source file -> URL path it is served at
 PAGES = {
     "index.html": "/",
     "research.html": "/research/",
     "publications.html": "/publications/",
+    "writing.html": "/writing/",
+    "post.html": "/writing/planning-follows-a-straight-path/",
 }
 NAV = [  # label, target, key
     ("Home", "index.html", "home"),
     ("Research", "research.html", "research"),
     ("Publications", "publications.html", "publications"),
+    ("Writing", "writing.html", "writing"),
 ]
 TAGLINE = "understanding how networks represent, reason, and learn"
 FOOTER = """<footer>
