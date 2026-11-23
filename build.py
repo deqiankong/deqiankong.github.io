@@ -44,7 +44,7 @@ NAV = [  # label, target, key
     ("Publications", "publications.html", "publications"),
     ("Writing", "writing.html", "writing"),
 ]
-TAGLINE = "understanding how networks represent, reason, and learn"
+TAGLINE = "understanding how the brain and neural networks represent, reason, and learn"
 FOOTER = """<footer>
   © 2026 Deqian Kong
   <span class="sep">·</span>deqiankong AT ucla.edu
