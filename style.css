@@ -116,14 +116,9 @@ ul.news time { color: var(--muted); font-variant-numeric: tabular-nums; white-sp
 .title-block { text-align: center; margin-bottom: 2.4rem; }
 .title-block h1 { font-size: 1.75rem; font-weight: 700; line-height: 1.25; margin: 0 0 .45rem; }
 .title-block .meta { font-style: italic; color: var(--muted); margin: 0; text-align: center; }
-.post { counter-reset: sidenote; }
-.sn-ref { counter-increment: sidenote; font-size: .7em; line-height: 0; }
-.sn-ref::after { content: counter(sidenote); }
-.sidenote { display: block; margin: .55em 0 .55em 1.4em; font-size: .84em; line-height: 1.38; color: var(--muted); text-align: left; hyphens: manual; -webkit-hyphens: manual; }
-.sidenote::before { content: counter(sidenote) "\2002"; font-size: .85em; vertical-align: .3em; }
-@media (min-width: 76rem) {
-  .sidenote { float: right; clear: right; width: 11rem; margin: .2em -12.4rem .6em 0; }
-}
+/* a remark: a comment set in the text where it applies, as in a mathematics paper */
+.remark { margin: 1em 0 1.1em; }
+.remark .label { font-style: italic; margin-right: .3em; }
 /* code is framed by hairlines, like a table, with no filled panel */
 pre { padding: .8rem 0; margin: 1.4rem 0; overflow-x: auto; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
 code, pre { font-family: var(--mono); font-size: .8em; line-height: 1.42; }

@@ -35,6 +35,6 @@ To change the weight, edit `GAIN` in `tools/thicken.py`, then:
 ## Status
 
 Not yet on the site: a CV link and a Scholar link. The one post under Writing is a
-layout sample (math, figure, video, code, margin notes), not finished writing.
+layout sample (math, figure, video, code, a remark), not finished writing.
 To add a post, copy `src/post.html`, add it to `PAGES` in `build.py` and to the list
 in `src/writing.html`, and rebuild.
