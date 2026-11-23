@@ -140,6 +140,11 @@ ul.log time { color: var(--muted); font-variant-numeric: tabular-nums; white-spa
 ul.log .kind { color: var(--muted); font-style: italic; font-size: .9em; margin-left: .45rem; }
 .more { font-style: italic; margin-top: .8rem; }
 
+/* Home only: a small ink drawing; the footer rule is the edge the cat looks over */
+.tailpiece { margin: 3.2rem 0 0; text-align: center; line-height: 0; }
+.tailpiece img { height: 7.5rem; width: auto; vertical-align: bottom; }
+main:has(.tailpiece) + footer { margin-top: 0; }
+
 footer { text-align: center; border-top: 1px solid var(--rule); margin-top: 4rem; padding: 1.3rem 1rem 3rem; color: var(--muted); font-size: .9rem; }
 footer a { color: var(--muted); }
 footer .sep { margin: 0 .45rem; }
