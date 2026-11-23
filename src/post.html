@@ -19,7 +19,7 @@
     <p class="meta">November 2026 · note</p>
   </header>
 
-  <p>Place cells in the hippocampus fire when an animal is at a particular place. Instead of asking what a single cell does, take the whole population at position <span class="tex">x</span> as one vector, <span class="tex">h(x, t)</span>, where <span class="tex">t</span> sets the spatial scale.<sup class="sn-ref"></sup><span class="sidenote">The scale grows <span style="white-space:nowrap">like <span class="tex">\sqrt{t}</span>,</span> which mirrors the dorsoventral axis of the hippocampus.</span> We ask one thing of this vector: its inner products should be the transition probabilities of a random walk,</p>
+  <p>Place cells in the hippocampus fire when an animal is at a particular place. Instead of asking what a single cell does, take the whole population at position <span class="tex">x</span> as one vector, <span class="tex">h(x, t)</span>, where <span class="tex">t</span> sets the spatial scale (the scale grows <span style="white-space:nowrap">like <span class="tex">\sqrt{t}</span>,</span> which mirrors the dorsoventral axis of the hippocampus). We ask one thing of this vector: its inner products should be the transition probabilities of a random walk,</p>
 
   <div class="eq">
     <span class="tex">\langle\, h(x,t),\; h(y,t) \,\rangle \;=\; q(y \mid x,\, t)</span>
@@ -53,7 +53,9 @@
     <span class="no">(3)</span>
   </div>
 
-  <p>which is the recursion of dynamic programming.<sup class="sn-ref"></sup><span class="sidenote">No successful trajectory is needed to learn this. The walk is random.</span> At each step the planner uses the scale with the largest gradient.</p>
+  <p>which is the recursion of dynamic programming. At each step the planner uses the scale with the largest gradient.</p>
+
+  <p class="remark"><span class="label">Remark.</span> No successful trajectory is needed to learn this. The walk is random.</p>
 
   <figure>
     <video src="assets/video/walk.webm" poster="assets/img/walk-poster.webp" width="704" height="484" autoplay muted loop playsinline></video>
