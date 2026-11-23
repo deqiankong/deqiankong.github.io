@@ -102,10 +102,14 @@ def thicken(font, gain):
     cff = font["CFF "].cff
     top = cff[cff.fontNames[0]]
     private, gsubrs = top.Private, cff.GlobalSubrs
+    # A CFF outline stores its advance as an offset from nominalWidthX. Windows
+    # takes the advance from there and the other systems from hmtx, so the two
+    # must agree.
+    nominal = getattr(private, "nominalWidthX", 0)
     new = {}
     for name in font.getGlyphOrder():
         g = glyphs[name]
-        pen = T2CharStringPen(g.width, glyphs)
+        pen = T2CharStringPen(g.width - nominal, glyphs)
         draw(thicken_glyph(contours_of(g), d), pen)
         new[name] = pen.getCharString(private=private, globalSubrs=gsubrs)
     for name, cs in new.items():

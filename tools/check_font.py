@@ -7,7 +7,9 @@
 
 Each glyph is drawn at one pixel per font unit, before and after. The new
 shape must contain everything within gain/2 of the old one, and must not
-reach further than a mitred corner can. Prints the glyphs that fail.
+reach further than a mitred corner can. The advance stored with each outline
+must also equal the one in hmtx (Windows reads the first, other systems the
+second). Prints the glyphs that fail.
 Needs fontTools, numpy, scipy and matplotlib.
 """
 import sys
@@ -19,6 +21,7 @@ from matplotlib.transforms import Affine2D
 from fontTools.ttLib import TTFont
 from fontTools.pens.recordingPen import RecordingPen
 from fontTools.pens.boundsPen import BoundsPen
+from fontTools.pens.basePen import NullPen
 
 TOL = 1.0   # pixels = font units
 
@@ -41,6 +44,17 @@ def raster(path, box):
     gc = r.new_gc(); gc.set_antialiased(False); gc.set_linewidth(0)
     r.draw_path(gc, path, Affine2D().translate(-x0, -y0), (0, 0, 0, 1))
     return np.asarray(r.buffer_rgba())[:, :, 3] > 127
+
+
+def outline_widths_off(font):
+    """Glyphs whose advance inside the CFF outline differs from hmtx."""
+    cff = font["CFF "].cff
+    cs, hmtx, off = cff[cff.fontNames[0]].CharStrings, font["hmtx"], []
+    for name in font.getGlyphOrder():
+        c = cs[name]; c.draw(NullPen())
+        if c.width != hmtx[name][0]:
+            off.append((name, "outline says advance %g, hmtx says %g" % (c.width, hmtx[name][0])))
+    return off
 
 
 def main():
@@ -75,6 +89,7 @@ def main():
         if reach > limit + TOL: why.append("reaches %.1f (limit %.1f)" % (reach, limit))
         if beyond > 0.02 * ink + 40: why.append("%d px beyond the offset (ink %d)" % (beyond, ink))
         if why: bad.append((name, "; ".join(why)))
+    bad.extend(outline_widths_off(new))
     print("%s: %d glyphs checked, %d flagged, %d width changes, worst missing %d px, furthest reach %.1f units"
           % (sys.argv[2].split("/")[-1], n, len(bad), widths, worst_miss, worst_reach))
     for name, why in bad[:40]:
