@@ -135,10 +135,72 @@ ul.log time { color: var(--muted); font-variant-numeric: tabular-nums; white-spa
 ul.log .kind { color: var(--muted); font-style: italic; font-size: .9em; margin-left: .45rem; }
 .more { font-style: italic; margin-top: .8rem; }
 
-/* Home only: a small ink drawing; the footer rule is the edge the cat looks over */
-.tailpiece { margin: 3.2rem 0 0; text-align: center; line-height: 0; }
-.tailpiece img { height: 5rem; width: auto; vertical-align: bottom; }
+/* Home only: the cat at the footer rule. The rule is the edge he looks over.
+   On each visit he takes another pose at another place along the line (the short
+   script after him chooses; without it he is the centred portrait). */
+.tailpiece { --cat: 5rem; position: relative; height: var(--cat); margin: 3.2rem 0 0; line-height: 0; clip-path: inset(-4rem -1.1rem 0 -1.1rem); }
+.cat { position: absolute; bottom: 0; left: calc((100% - var(--cat) * 1.0316) * var(--x, .5)); width: calc(var(--cat) * 1.0316); height: var(--cat); overflow: visible; fill: var(--ink); }
+.cat[data-flip] { transform: scaleX(-1); }
+.cat .c-iris { fill: #8fbce6; }
+.cat .c-pink { fill: #f3c1bd; }
+.cat .c-paper { fill: var(--paper); }
+.cat .c-tail, .cat .c-paws, .cat .c-tongue, .cat .c-shut, .cat .c-mouth { display: none; }
 main:has(.tailpiece) + footer { margin-top: 0; }
+
+/* the poses: how far he comes up, how he holds his head, and the small parts */
+.cat .c-body { transform-origin: 310px 330px; transform: translateY(var(--dy, 0px)) rotate(var(--rot, 0deg)); transition: transform .9s cubic-bezier(.2, .9, .3, 1.12) .25s; }
+.cat[data-pose="peek"] { --dy: 338px; --rot: -9deg; }
+.cat[data-pose="peek"] .c-paws { display: inline; }
+.cat[data-pose="ears"] { --dy: 452px; --rot: -9deg; }
+.cat[data-pose="tilt"] { --dy: 46px; --rot: 11deg; }
+.cat[data-pose="blep"] .c-tongue { display: inline; }
+.cat[data-pose="happy"] .c-eye { display: none; }
+.cat[data-pose="happy"] .c-shut { display: inline; }
+.cat[data-pose="tail"] .c-body, .cat[data-pose="stroll"] .c-body { display: none; }
+.cat[data-pose="tail"] .c-tail, .cat[data-pose="stroll"] .c-tail { display: inline; }
+.cat[data-pose="bat"] { --dy: 338px; --rot: -9deg; }
+.cat[data-pose="pounce"] { --dy: 292px; --rot: -9deg; }
+.cat[data-pose="nap"] { --dy: 250px; --rot: -9deg; }
+.cat[data-pose="bat"] .c-paws, .cat[data-pose="pounce"] .c-paws, .cat[data-pose="nap"] .c-paws { display: inline; }
+.cat[data-pose="nap"] .c-eye { display: none; }
+.cat[data-pose="nap"] .c-shut { display: inline; }
+.cat[data-pose="meow"] .c-mouth { display: inline; }
+
+/* he stays behind the line until the foot of the page is on screen, then comes up */
+.cat .c-paw, .cat .c-tail { transform-box: fill-box; transform-origin: 50% 100%; transition: transform .5s cubic-bezier(.2, .9, .3, 1.2); }
+.cat[data-wait] .c-body { transform: translateY(700px) rotate(var(--rot, 0deg)); }
+.cat[data-wait] .c-paw { transform: translateY(80px); }
+.cat[data-wait] .c-tail { transform: translateY(460px); }
+
+/* a little life: he blinks, an ear flicks, the tail sways */
+.cat .c-eye { transform-box: fill-box; transform-origin: 50% 55%; animation: cat-blink 6.4s 1.5s infinite; }
+.cat .c-ear-r { transform-box: fill-box; transform-origin: 35% 100%; animation: cat-ear 11s 4s infinite; }
+.cat:not([data-wait]) .c-tail { animation: cat-tail 5.2s .7s ease-in-out infinite; }
+
+/* the livelier versions */
+.cat .c-pupil, .cat .c-mouth { transform-box: fill-box; transform-origin: 50% 50%; }
+.cat[data-pose="watch"] .c-pupil { animation: cat-watch 5s 1.4s ease-in-out infinite; }               /* his eyes follow something */
+.cat[data-pose="pounce"] .c-pupil { transform: scale(1.4); }                                          /* wide eyes, and a wiggle before the jump */
+.cat[data-pose="pounce"]:not([data-wait]) .c-body { animation: cat-wiggle 4.2s 1.6s infinite; }
+.cat[data-pose="wink"] .c-eye-l { animation: cat-wink 4.8s 1.4s infinite; }
+.cat[data-pose="wink"] .c-eye-r { animation: none; }
+.cat[data-pose="nap"]:not([data-wait]) .c-body { animation: cat-breathe 4.6s 1.4s ease-in-out infinite; }
+.cat[data-pose="bat"]:not([data-wait]) .c-paw:last-child { animation: cat-bat 3.8s 1.6s infinite; }
+.cat[data-pose="stroll"] { animation: cat-stroll 9s 1.4s ease-in-out infinite alternate; }            /* he walks along behind the line */
+.cat[data-pose="meow"] .c-mouth { transform-origin: 50% 0; animation: cat-meow 4.4s 1.4s infinite; }
+@keyframes cat-watch { 0%, 8%, 100% { transform: translate(-9px, 2px); } 50%, 58% { transform: translate(9px, 2px); } }
+@keyframes cat-wiggle { 0%, 24%, 100% { transform: translateY(var(--dy)) rotate(var(--rot)); } 4%, 12%, 20% { transform: translate(8px, var(--dy)) rotate(calc(var(--rot) + 1.6deg)); } 8%, 16% { transform: translate(-8px, var(--dy)) rotate(calc(var(--rot) - 1.6deg)); } }
+@keyframes cat-wink { 0%, 4%, 30%, 100% { transform: scaleY(1); } 9%, 24% { transform: scaleY(.08); } }
+@keyframes cat-breathe { 0%, 100% { transform: translateY(var(--dy)) rotate(var(--rot)); } 50% { transform: translateY(calc(var(--dy) + 6px)) rotate(var(--rot)); } }
+@keyframes cat-bat { 0%, 12%, 26%, 100% { transform: translateY(0); } 6% { transform: translateY(-34px) rotate(-7deg); } 19% { transform: translateY(-28px) rotate(-5deg); } }
+@keyframes cat-stroll { to { margin-left: calc(var(--go, 1) * 6.5rem); } }
+@keyframes cat-meow { 0%, 22%, 100% { transform: scaleY(1); } 30%, 92% { transform: scaleY(.12); } }
+@keyframes cat-blink { 0%, 43%, 47%, 90%, 94%, 97%, 100% { transform: scaleY(1); } 45%, 92%, 95.5% { transform: scaleY(.08); } }
+@keyframes cat-ear { 0%, 5%, 100% { transform: rotate(0); } 1.4% { transform: rotate(9deg); } 3% { transform: rotate(-3deg); } }
+@keyframes cat-tail { 0%, 100% { transform: rotate(0); } 28% { transform: rotate(6deg); } 72% { transform: rotate(-5deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .cat, .cat * { animation: none !important; transition: none !important; }
+}
 
 footer { text-align: center; border-top: 1px solid var(--rule); margin-top: 4rem; padding: 1.3rem 1rem 3rem; color: var(--muted); font-size: .9rem; }
 footer a { color: var(--muted); }

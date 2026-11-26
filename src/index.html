@@ -81,7 +81,30 @@
     <li><time>2026</time><span>Anthropic AI for Science Award.</span></li>
   </ul>
 
-  <p class="tailpiece"><img src="assets/img/cat.svg" alt="Ink portrait of a long-haired cat with blue eyes, looking up over the line" width="653" height="633"></p>
+  <p class="tailpiece"><!--cat--></p>
+  <script>
+// The cat plays hide and seek: another pose and another place on every visit,
+// never the same twice in a row. He comes up when the foot of the page is on screen.
+(function () {
+  var cat = document.querySelector('.cat');
+  if (!cat) return;
+  var poses = ['up', 'peek', 'ears', 'tilt', 'blep', 'happy', 'tail', 'watch', 'wink', 'meow', 'nap', 'pounce', 'bat', 'stroll'], last = [], pose, x;
+  try { last = (sessionStorage.getItem('cat') || '').split(' '); } catch (e) {}
+  do { pose = poses[Math.floor(Math.random() * poses.length)]; } while (pose === last[0]);
+  do { x = Math.random(); } while (Math.abs(x - last[1]) < 0.25);
+  cat.setAttribute('data-pose', pose);
+  cat.style.setProperty('--x', x.toFixed(3));
+  cat.style.setProperty('--go', x < 0.5 ? 1 : -1);          // when he strolls, he walks towards the middle
+  if (Math.random() < 0.5) cat.setAttribute('data-flip', '');
+  try { sessionStorage.setItem('cat', pose + ' ' + x.toFixed(3)); } catch (e) {}
+  if (window.IntersectionObserver) {
+    cat.setAttribute('data-wait', '');
+    new IntersectionObserver(function (seen, watch) {
+      if (seen[0].isIntersecting) { cat.removeAttribute('data-wait'); watch.disconnect(); }
+    }, { threshold: 0.6 }).observe(cat.parentNode);
+  }
+})();
+  </script>
 
 </main>
 
