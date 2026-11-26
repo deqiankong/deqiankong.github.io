@@ -111,6 +111,7 @@ for name, url in PAGES.items():
     page = (src / name).read_text()
     page = re.sub(r"<!--masthead:(\w+)-->", masthead, page)
     page = page.replace("<!--footer-->", FOOTER)
+    page = page.replace("<!--cat-->", (src / "cat.svg").read_text().strip())
     page = page.replace('href="style.css"', f'href="/style.css?v={CSS_VERSION}"')
     page = re.sub(r'<span class="tex">(.*?)</span>', tex, page, flags=re.S)
     page = re.sub(r'(src|poster)="(assets/[^"]+)"', r'\1="/\2"', page)

@@ -1,10 +1,14 @@
 # deqiankong.github.io
 
-Personal site of Deqian Kong. Plain static HTML, one stylesheet, no JavaScript.
+Personal site of Deqian Kong. Plain static HTML, one stylesheet, and one short script
+(for the cat at the foot of Home).
 
 ## Layout
 
 - `src/` — page sources (`index`, `research`, `publications`, `writing`, and one sample post)
+- `src/cat.svg` — the cat at the foot of Home, drawn in parts; `build.py` puts it into the page.
+  The script after it in `src/index.html` gives him another pose and place on each visit
+  (the poses are the `data-pose` rules in `style.css`); without the script he is the centred portrait
 - `style.css`, `assets/` — stylesheet, fonts, figures, video
 - `build.py` — writes each page to its URL path (`index.html`, `research/index.html`, …)
 - `tools/` — the text font: `thicken.py` (the geometry and the one dial, `GAIN`),
